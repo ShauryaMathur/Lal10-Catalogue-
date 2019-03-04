@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Lal10 Catalogue+</string>
+    <string name="enter_product_name">Enter the name of the product</string>
+    <string name="enter_product_category">Enter category of the product</string>
+    <string name="enter_product_desc">Enter Description for the product</string>
+    <string name="enter_product_price">Enter Price of the product</string>
+    <!--<string name="enter_product_category">Enter the caegory of the product</string>-->
+    <string name="button">Add to Products</string>
+</resources>
