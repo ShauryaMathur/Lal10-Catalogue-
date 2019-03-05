@@ -49,7 +49,7 @@ public class Login extends AppCompatActivity {
     }
 
     //If you want app to stay signed in
-    
+
     /*@Override
     protected void onStart() {
         super.onStart();
