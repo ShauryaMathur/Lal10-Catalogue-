@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -16,10 +17,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 public class UploadImage extends AppCompatActivity {
 
     private Button selectimage;
+    private ImageView showImage;
 
     private StorageReference mstorageRef;
     private ProgressDialog mprogress;
@@ -37,7 +40,7 @@ public class UploadImage extends AppCompatActivity {
 
             Uri uri=data.getData();
 
-            StorageReference filepath=mstorageRef.child("Photos").child(uri.getLastPathSegment());
+            final StorageReference filepath=mstorageRef.child("Photos").child(uri.getLastPathSegment());
 
             filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -45,6 +48,16 @@ public class UploadImage extends AppCompatActivity {
 
                     Toast.makeText(UploadImage.this,"Upload Done !",Toast.LENGTH_LONG).show();
                     mprogress.dismiss();
+
+                    //Uri downloaduri=StorageReference.get
+                    filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Uri downloaduri=uri;
+                            Picasso.with(UploadImage.this).load(downloaduri).fit().centerCrop().into(showImage);
+                            Toast.makeText(UploadImage.this,"Image Display",Toast.LENGTH_LONG).show();
+                        }
+                    });
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -64,6 +77,7 @@ public class UploadImage extends AppCompatActivity {
         selectimage=findViewById(R.id.uploadimage);
         mprogress=new ProgressDialog(this);
 
+        showImage=findViewById(R.id.imageView);
         mstorageRef= FirebaseStorage.getInstance().getReference();
 
         selectimage.setOnClickListener(new View.OnClickListener() {

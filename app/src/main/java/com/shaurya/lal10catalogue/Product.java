@@ -6,6 +6,29 @@ public class Product {
     public String category;
     public String desc;
     public String price;
+    public String productKey;
+    public String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public Product(){
+
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Product(String name, String category, String desc, String price, String productKey, String image) {
+        this.name = name;
+        this.category = category;
+        this.desc = desc;
+        this.price = price;
+        this.productKey = productKey;
+        this.image = image;
+    }
 
     public String getProductKey() {
         return productKey;
@@ -15,7 +38,7 @@ public class Product {
         this.productKey = productKey;
     }
 
-    public String productKey;
+
 
     public String getName() {
         return name;
