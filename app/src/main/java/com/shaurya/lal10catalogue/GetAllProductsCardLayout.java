@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 public class GetAllProductsCardLayout extends AppCompatActivity {
@@ -29,6 +31,8 @@ public class GetAllProductsCardLayout extends AppCompatActivity {
 
         productlist=findViewById(R.id.productlist);
         mDatabaseRef= FirebaseDatabase.getInstance().getReference().child("Products");
+        mDatabaseRef.keepSynced(true);
+
         productlist.setHasFixedSize(true);
         productlist.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -97,10 +101,23 @@ public class GetAllProductsCardLayout extends AppCompatActivity {
 
         }
 
-        public void setImage(Context ctx, String image){
+        public void setImage(final Context ctx,final String image){
 
-            ImageView post_image=mview.findViewById(R.id.product_image);
-            Picasso.with(ctx).load(image).into(post_image);
+            final ImageView post_image=mview.findViewById(R.id.product_image);
+            //Picasso.with(ctx).load(image).into(post_image);
+
+            Picasso.with(ctx).load(image).networkPolicy(NetworkPolicy.OFFLINE).into(post_image, new Callback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError() {
+                    Picasso.with(ctx).load(image).into(post_image);
+
+                }
+            });
         }
     }
 }
