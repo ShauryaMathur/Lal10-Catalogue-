@@ -28,6 +28,8 @@ public class ProductSingleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_single);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mDatabase=FirebaseDatabase.getInstance().getReference().child("Products");
 
         mSingleName=findViewById(R.id.single_product_name);
@@ -37,7 +39,7 @@ public class ProductSingleActivity extends AppCompatActivity {
         mSinglePrice=findViewById(R.id.single_product_price);
 
         mProductKey=getIntent().getExtras().getString("Product_key");
-        Toast.makeText(ProductSingleActivity.this,mProductKey,Toast.LENGTH_LONG).show();
+        //Toast.makeText(ProductSingleActivity.this,mProductKey,Toast.LENGTH_LONG).show();
 
         mDatabase.child(mProductKey).addValueEventListener(new ValueEventListener() {
             @Override

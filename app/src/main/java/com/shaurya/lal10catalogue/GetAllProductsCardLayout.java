@@ -3,14 +3,19 @@ package com.shaurya.lal10catalogue;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,12 +25,18 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GetAllProductsCardLayout extends AppCompatActivity {
+
+    private ArrayList<Product> prodlist1=new ArrayList<Product>();
 
     private boolean mProcessSwitch=false;
 
@@ -34,6 +45,8 @@ public class GetAllProductsCardLayout extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
 
     private DatabaseReference mDatabasePDF;
+
+    private SearchProductAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +61,9 @@ public class GetAllProductsCardLayout extends AppCompatActivity {
 
         productlist.setHasFixedSize(true);
         productlist.setLayoutManager(new LinearLayoutManager(this));
+
+
+        //adapter=new SearchProductAdapter(getApplicationContext(),prodlist1);
     }
 
     @Override
@@ -62,7 +78,7 @@ public class GetAllProductsCardLayout extends AppCompatActivity {
                 mDatabaseRef
         ) {
             @Override
-            protected void populateViewHolder(ProductViewHolder viewHolder, Product model, int position) {
+            public void populateViewHolder(ProductViewHolder viewHolder, Product model, int position) {
 
                 final String product_key=getRef(position).getKey();
 
@@ -72,11 +88,14 @@ public class GetAllProductsCardLayout extends AppCompatActivity {
                 viewHolder.setPrice(model.getPrice());
                 viewHolder.setImage(getApplicationContext(),model.getImage());
 
+                prodlist1.add(model);
+                //Toast.makeText(getApplicationContext(),prodlist1.toString(),Toast.LENGTH_LONG).show();
+
                 viewHolder.mview.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        Toast.makeText(GetAllProductsCardLayout.this,product_key,Toast.LENGTH_LONG).show();
+                        //Toast.makeText(GetAllProductsCardLayout.this,product_key,Toast.LENGTH_LONG).show();
 
                         Intent singleproductintent=new Intent(GetAllProductsCardLayout.this,ProductSingleActivity.class);
                         singleproductintent.putExtra("Product_key",product_key);
@@ -193,4 +212,102 @@ public class GetAllProductsCardLayout extends AppCompatActivity {
             });
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.searchicon,menu);
+
+        MenuItem searchViewItem = menu.findItem(R.id.app_bar_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchViewItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                //SearchProductAdapter adapter;
+                //adapter.getFilter().filter(newText);
+
+                Query mQuery=mDatabaseRef.orderByChild("name").startAt(newText).endAt(newText+"\uf8ff");
+
+                FirebaseRecyclerAdapter<Product,ProductViewHolder> s=new FirebaseRecyclerAdapter<Product,ProductViewHolder>(
+                        Product.class,
+                        R.layout.product_row,
+                        ProductViewHolder.class,
+                        mQuery
+                ) {
+                    @Override
+                    protected void populateViewHolder(ProductViewHolder viewHolder, Product model, int position) {
+
+                        final String product_key=getRef(position).getKey();
+
+                        viewHolder.setName(model.getName());
+                        viewHolder.setCategory(model.getCategory());
+                        viewHolder.setDescription(model.getDesc());
+                        viewHolder.setPrice(model.getPrice());
+                        viewHolder.setImage(getApplicationContext(),model.getImage());
+
+                        //prodlist1.add(model);
+                        //Toast.makeText(getApplicationContext(),prodlist1.toString(),Toast.LENGTH_LONG).show();
+
+                        viewHolder.mview.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                //Toast.makeText(GetAllProductsCardLayout.this,product_key,Toast.LENGTH_LONG).show();
+
+                                Intent singleproductintent=new Intent(GetAllProductsCardLayout.this,ProductSingleActivity.class);
+                                singleproductintent.putExtra("Product_key",product_key);
+                                startActivity(singleproductintent);
+
+                            }
+                        });
+
+                        viewHolder.addtopdfswitch.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                mProcessSwitch=true;
+                                mDatabasePDF.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (mProcessSwitch) {
+
+                                            if (dataSnapshot.hasChild(product_key)) {
+
+                                                mDatabasePDF.child(product_key).removeValue();
+                                                mProcessSwitch = false;
+                                            } else {
+
+                                                mDatabasePDF.child(product_key).setValue("Random Value");
+                                                mProcessSwitch = false;
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                            }
+                        });
+
+                    }
+                };
+
+                productlist.setAdapter(s);
+
+                //Toast.makeText(getApplicationContext(),"Hi",Toast.LENGTH_LONG).show();
+                return true;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
 }
