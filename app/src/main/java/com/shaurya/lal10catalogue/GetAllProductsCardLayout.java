@@ -231,8 +231,8 @@ public class GetAllProductsCardLayout extends AppCompatActivity {
 
                 //SearchProductAdapter adapter;
                 //adapter.getFilter().filter(newText);
-
-                Query mQuery=mDatabaseRef.orderByChild("name").startAt(newText).endAt(newText+"\uf8ff");
+                String searchText=newText.substring(0,1).toUpperCase();
+                Query mQuery=mDatabaseRef.orderByChild("name").startAt(searchText).endAt(searchText+"\uf8ff");
 
                 FirebaseRecyclerAdapter<Product,ProductViewHolder> s=new FirebaseRecyclerAdapter<Product,ProductViewHolder>(
                         Product.class,
