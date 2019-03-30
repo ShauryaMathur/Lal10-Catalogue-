@@ -48,10 +48,14 @@ public class GetAllProductsCardLayout extends AppCompatActivity {
 
     private SearchProductAdapter adapter;
 
+    private String searchText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_all_products_card_layout);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         productlist=findViewById(R.id.productlist);
         mDatabaseRef= FirebaseDatabase.getInstance().getReference().child("Products");
@@ -231,8 +235,14 @@ public class GetAllProductsCardLayout extends AppCompatActivity {
 
                 //SearchProductAdapter adapter;
                 //adapter.getFilter().filter(newText);
-                String searchText=newText.substring(0,1).toUpperCase();
-                Query mQuery=mDatabaseRef.orderByChild("name").startAt(searchText).endAt(searchText+"\uf8ff");
+
+                Query mQuery;
+                if(newText!=null){
+                    searchText=newText.substring(0,1).toUpperCase();
+                    mQuery=mDatabaseRef.orderByChild("name").startAt(searchText).endAt(searchText+"\uf8ff");
+                }else{
+                    mQuery=mDatabaseRef.orderByChild("name").startAt(newText).endAt(newText+"\uf8ff");
+                }
 
                 FirebaseRecyclerAdapter<Product,ProductViewHolder> s=new FirebaseRecyclerAdapter<Product,ProductViewHolder>(
                         Product.class,
