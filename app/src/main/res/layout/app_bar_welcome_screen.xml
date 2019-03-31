@@ -27,6 +27,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="80dp"
+        app:elevation="@dimen/com_facebook_auth_dialog_corner_radius"
+        app:srcCompat="@drawable/ic_menu_send" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:elevation="@dimen/com_facebook_auth_dialog_corner_radius"
         app:srcCompat="@drawable/add" />

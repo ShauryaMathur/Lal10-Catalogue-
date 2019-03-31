@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,10 +14,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewParent;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class WelcomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private ViewPager vp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +33,55 @@ public class WelcomeScreen extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        View fl=findViewById(R.id.includeviewpager);
+        vp=fl.findViewById(R.id.viewpager);
+
+        ImageAdapter adapter=new ImageAdapter(this);
+        vp.setAdapter(adapter);
+
+        ImageView btnext=findViewById(R.id.button2);
+        btnext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //int a=vp.getCurrentItem();
+                vp.setCurrentItem(vp.getCurrentItem()+1,true);
+            }
+        });
+
+        ImageView btprev=findViewById(R.id.button3);
+        btprev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //int a=vp.getCurrentItem();
+                vp.setCurrentItem(vp.getCurrentItem()-1,true);
+            }
+        });
+
+        /*private int getItem(int i) {
+            return vp.getCurrentItem() + i;
+        }*/
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "For Composing Query Emails", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                startActivity(new Intent(WelcomeScreen.this,EmailPopup.class));
             }
         });
 
+        FloatingActionButton fab2=findViewById(R.id.fab2);
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, "For Adding Notes", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -100,13 +148,14 @@ public class WelcomeScreen extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-            //Get Products added to PDF
+            //Get Products added to PDF and download PDF
 
-        } else if (id == R.id.nav_share) {
+            startActivity(new Intent(WelcomeScreen.this,GetPDF.class));
 
-            //Generate and download PDF
+        } else if (id == R.id.nav_tasks) {
 
-        } else if (id == R.id.nav_send) {
+            //Add Logs to spreadsheets
+            startActivity(new Intent(WelcomeScreen.this,AddLogs.class));
 
         }
 

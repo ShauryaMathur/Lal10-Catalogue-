@@ -15,51 +15,66 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".GetPDF"
+            android:label="@string/title_activity_get_pdf"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".AddLogs"
+            android:parentActivityName=".WelcomeScreen" />
+        <activity
+            android:name=".EmailPopup"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
+        <activity
             android:name=".WelcomeScreen"
             android:label="@string/title_activity_welcome_screen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ProductSingleActivity"
             android:parentActivityName=".GetAllProductsCardLayout" />
-        <activity android:name=".GetAllProductsCardLayout"
-            android:parentActivityName=".WelcomeScreen">
-        </activity>
+        <activity
+            android:name=".GetAllProductsCardLayout"
+            android:parentActivityName=".WelcomeScreen" />
         <activity android:name=".UploadImageFromCamera" />
-        <activity android:name=".UploadImage">
-
-        </activity>
-        <activity android:name=".Login">
-
-        </activity>
+        <activity
+            android:name=".UploadImage"
+            android:parentActivityName=".WelcomeScreen" />
+        <activity android:name=".Login" />
         <activity android:name=".Profile" />
         <activity android:name=".GetAllProducts" />
         <activity android:name=".AddProduct" />
-        <activity android:name=".Hotels"
+        <activity
+            android:name=".Hotels"
             android:label="Hotels"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".CatalogueActivity"
-            android:parentActivityName=".WelcomeScreen"/>
-        <activity android:name=".CorporateGifting"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CatalogueActivity"
+            android:parentActivityName=".WelcomeScreen" />
+        <activity
+            android:name=".CorporateGifting"
             android:label="Corporate Gifting"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ExportHouses"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ExportHouses"
             android:label="Export Houses"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Boutiques_Designers"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Boutiques_Designers"
             android:label="Boutiques and Designers"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Exhibitions"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Exhibitions"
             android:label="Exhibitions"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".CSR_Philanthropy"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CSR_Philanthropy"
             android:label="CSR and Philanthropy"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

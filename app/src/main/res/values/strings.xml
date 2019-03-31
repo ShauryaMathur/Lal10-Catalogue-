@@ -109,4 +109,7 @@
 
         "One always expects the best experience from hotels and they never let down in that regard. People do not compromise on their living space, and hotels do the best in providing them a homely, stylish staying experience.\n\n"
     </string>
+    <string name="recipientemail">shauryamathur2001@gmail.com</string>
+    <string name="subject">Customer Enquiry</string>
+    <string name="title_activity_get_pdf">GetPDF</string>
 </resources>

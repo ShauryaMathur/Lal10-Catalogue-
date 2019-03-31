@@ -7,19 +7,23 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="Add Product" />
         <item
             android:id="@+id/nav_catalog"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Product Catalogue" />
+            android:title="All Products" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="Catalog" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Get PDF" />
+        <item
+            android:id="@+id/nav_tasks"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Add Logs" />
     </group>
 
     <item android:title="Communicate">
@@ -27,11 +31,14 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="Contact Us" />
+
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_menu_share"
+                android:title="About Us" />
+
+
         </menu>
     </item>
 

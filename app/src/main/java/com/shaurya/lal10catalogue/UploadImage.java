@@ -74,6 +74,8 @@ public class UploadImage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_image);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         selectimage=findViewById(R.id.uploadimage);
         mprogress=new ProgressDialog(this);
 
