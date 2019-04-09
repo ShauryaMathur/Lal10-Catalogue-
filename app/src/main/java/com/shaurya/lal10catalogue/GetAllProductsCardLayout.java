@@ -61,7 +61,7 @@ public class GetAllProductsCardLayout extends AppCompatActivity {
         mDatabaseRef= FirebaseDatabase.getInstance().getReference().child("Products");
         mDatabasePDF=FirebaseDatabase.getInstance().getReference().child("ProductPDF");
         mDatabaseRef.keepSynced(true);
-        mDatabasePDF.keepSynced(true);
+        //mDatabasePDF.keepSynced(true);
 
         productlist.setHasFixedSize(true);
         productlist.setLayoutManager(new LinearLayoutManager(this));
@@ -82,7 +82,7 @@ public class GetAllProductsCardLayout extends AppCompatActivity {
                 mDatabaseRef
         ) {
             @Override
-            public void populateViewHolder(ProductViewHolder viewHolder, Product model, int position) {
+            public void populateViewHolder(ProductViewHolder viewHolder, final Product model, int position) {
 
                 final String product_key=getRef(position).getKey();
 
@@ -123,8 +123,14 @@ public class GetAllProductsCardLayout extends AppCompatActivity {
                                             mDatabasePDF.child(product_key).removeValue();
                                             mProcessSwitch = false;
                                         } else {
-
-                                            mDatabasePDF.child(product_key).setValue("Random Value");
+                                            Product prod=new Product();
+                                            //mDatabasePDF.child(product_key);
+                                            prod.setName(model.getName());
+                                            prod.setCategory(model.getCategory());
+                                            prod.setDesc(model.getDesc());
+                                            prod.setPrice(model.getPrice());
+                                            prod.setImage(model.getImage());
+                                            mDatabasePDF.child(product_key).setValue(prod);
                                             mProcessSwitch = false;
                                         }
                                     }
@@ -247,7 +253,7 @@ public class GetAllProductsCardLayout extends AppCompatActivity {
                         mQuery
                 ) {
                     @Override
-                    protected void populateViewHolder(ProductViewHolder viewHolder, Product model, int position) {
+                    protected void populateViewHolder(ProductViewHolder viewHolder, final Product model, int position) {
 
                         final String product_key=getRef(position).getKey();
 
@@ -289,7 +295,14 @@ public class GetAllProductsCardLayout extends AppCompatActivity {
                                                 mProcessSwitch = false;
                                             } else {
 
-                                                mDatabasePDF.child(product_key).setValue("Random Value");
+                                                Product prod=new Product();
+                                                //mDatabasePDF.child(product_key);
+                                                prod.setName(model.getName());
+                                                prod.setCategory(model.getCategory());
+                                                prod.setDesc(model.getDesc());
+                                                prod.setPrice(model.getPrice());
+                                                prod.setImage(model.getImage());
+                                                mDatabasePDF.child(product_key).setValue(prod);
                                                 mProcessSwitch = false;
                                             }
                                         }

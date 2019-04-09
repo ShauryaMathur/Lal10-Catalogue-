@@ -18,11 +18,11 @@
             android:title="Catalog" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/selected_products"
             android:title="Get PDF" />
         <item
             android:id="@+id/nav_tasks"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/logs"
             android:title="Add Logs" />
     </group>
 
