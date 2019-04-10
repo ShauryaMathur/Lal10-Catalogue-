@@ -112,4 +112,7 @@
     <string name="recipientemail">shauryamathur2001@gmail.com</string>
     <string name="subject">Customer Enquiry</string>
     <string name="title_activity_get_pdf">GetPDF</string>
+    <string name="gen_please_wait">Please Wait !</string>
+    <string name="gen_pdf_file">Going On!</string>
+    <string name="title_activity_test_pdf">TestPDF</string>
 </resources>

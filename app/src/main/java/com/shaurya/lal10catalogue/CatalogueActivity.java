@@ -27,7 +27,7 @@ public class CatalogueActivity extends AppCompatActivity {
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(CatalogueActivity.this,"You clicked at" + catgegory[+ i], Toast.LENGTH_LONG).show();
+                //Toast.makeText(CatalogueActivity.this,"You clicked at" + catgegory[+ i], Toast.LENGTH_LONG).show();
 
                 switch (i){
                     case 0:{
@@ -35,7 +35,7 @@ public class CatalogueActivity extends AppCompatActivity {
                         break;}
 
                     case 1:{
-                        startActivity(new Intent(CatalogueActivity.this,CorporateGifting.class));
+                        startActivity(new Intent(CatalogueActivity.this,TestPDF.class));
                         break;
                     }
                     case 2:{

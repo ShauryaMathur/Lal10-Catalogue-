@@ -15,10 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".TestPDF"
+            android:label="@string/title_activity_test_pdf"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".GetPDF"
             android:label="@string/title_activity_get_pdf"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".AddLogs"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddLogs"
             android:parentActivityName=".WelcomeScreen" />
         <activity
             android:name=".EmailPopup"
@@ -51,7 +56,7 @@
         <activity
             android:name=".Hotels"
             android:label="Hotels"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:parentActivityName=".CatalogueActivity" />
         <activity
             android:name=".CatalogueActivity"
             android:parentActivityName=".WelcomeScreen" />

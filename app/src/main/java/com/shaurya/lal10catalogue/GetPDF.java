@@ -68,12 +68,12 @@ public class GetPDF extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                int i=0;
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    post[i]=postSnapshot.getKey();
+                int i = 0;
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    post[i] = postSnapshot.getKey();
                     Log.v("Get Data ->", post[i]);
 
-                    FirebaseRecyclerAdapter<Product, GetAllProductsCardLayout.ProductViewHolder> firebaserecycleradapter=new FirebaseRecyclerAdapter<Product, GetAllProductsCardLayout.ProductViewHolder>(
+                    FirebaseRecyclerAdapter<Product, GetAllProductsCardLayout.ProductViewHolder> firebaserecycleradapter = new FirebaseRecyclerAdapter<Product, GetAllProductsCardLayout.ProductViewHolder>(
 
                             Product.class,
                             R.layout.pdf_product_row,
@@ -83,14 +83,13 @@ public class GetPDF extends AppCompatActivity {
                         @Override
                         public void populateViewHolder(GetAllProductsCardLayout.ProductViewHolder viewHolder, Product model, int position) {
 
-                            final String product_key=getRef(position).getKey();
+                            final String product_key = getRef(position).getKey();
 
                             viewHolder.setName(model.getName());
                             viewHolder.setCategory(model.getCategory());
                             viewHolder.setDescription(model.getDesc());
                             viewHolder.setPrice(model.getPrice());
-                            viewHolder.setImage(getApplicationContext(),model.getImage());
-
+                            viewHolder.setImage(getApplicationContext(), model.getImage());
 
 
                             //prodlist1.add(model);
@@ -102,8 +101,8 @@ public class GetPDF extends AppCompatActivity {
 
                                     //Toast.makeText(GetAllProductsCardLayout.this,product_key,Toast.LENGTH_LONG).show();
 
-                                    Intent singleproductintent=new Intent(GetPDF.this,ProductSingleActivity.class);
-                                    singleproductintent.putExtra("Product_key",product_key);
+                                    Intent singleproductintent = new Intent(GetPDF.this, ProductSingleActivity.class);
+                                    singleproductintent.putExtra("Product_key", product_key);
                                     startActivity(singleproductintent);
 
                                 }
@@ -113,7 +112,7 @@ public class GetPDF extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
 
-                                    mProcessSwitch=true;
+                                    mProcessSwitch = true;
                                     mDatabasePDF.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -157,30 +156,6 @@ public class GetPDF extends AppCompatActivity {
         };
 
         mDatabasePDF.addListenerForSingleValueEvent(valueEventListener);
-
-        /*mDatabasePDF.addValueEventListener(new ValueEventListener() {
-
-
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-
-
-        });
-
-
-
-
-*/
-
 
     }
 
